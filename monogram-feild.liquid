@@ -18,3 +18,55 @@
     </div>
   </div>
 </div>
+
+<script>
+$( function(){
+
+  $('.devMonoChk').on('click', function(e){
+    var devJ = $(this).prop("checked");
+    if( devJ == true ){
+      $('.devLinePopup').show();
+      $(this).prop("checked", false);
+    } else {
+      $('.monoLength').val('');
+      $(this).prop("checked", false);
+    }
+  });
+  
+  $('.devClose').on('click', function(e){
+    e.preventDefault();
+  	$('.devLinePopup').hide();
+    $('.monoLength').val('');
+  });
+  
+  $('.devLineLeft a').on('click', function(e){
+    e.preventDefault();
+  	$('.devMonoChk').prop("checked", true);
+    $('.devLinePopup').hide();
+  });
+  
+  $('.add-to-cart').on('click', function(e){
+    e.preventDefault();
+    
+    if( $('.devMonoChk').prop("checked") == true ){
+      
+      $.ajax({
+        type: "POST",
+        url: '/cart/add.js',
+        data: {quantity: 1,id: 29037899841641 },
+        dataType: "json",
+        success: function(data) {
+          $('.product-single__form').submit();
+        },
+        error: function() {
+          alert('error handling here');
+        }
+      });
+      
+    } else {
+      $(this).parents('form').submit();
+    }
+  });
+  
+});
+</script>
